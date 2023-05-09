@@ -1,48 +1,65 @@
-// const form = document.querySelector('form');
+// function to validate the student name
+function validateName(name) {
+  const regex = /^[a-zA-Z\s-]+$/;
+  return regex.test(name);
+}
 
-// form.addEventListener('submit', (event) => {
-//   event.preventDefault();
+// function to handle the form submission
+function handleSubmit(event) {
+  event.preventDefault();
 
-//   const nameInput = document.querySelector('#name');
-//   const gradeInputs = document.querySelectorAll('#grade1', '#grade2', '#grade3');
-//   const name = nameInput.value.trim();
-//   const grade1 = parseInt(gradeInputs[0].value.trim());
-//   const grade2 = parseInt(gradeInputs[1].value.trim());
-//   const grade3 = parseInt(gradeInputs[2].value.trim());
+  const nameInput = document.getElementById("name");
+  const grade1Input = document.getElementById("grade1");
+  const grade2Input = document.getElementById("grade2");
+  const grade3Input = document.getElementById("grade3");
 
-//   if (nameInput.validity.valueMissing || nameInput.validity.customError ||
-//       gradeInputs[0].validity.valueMissing || gradeInputs[0].validity.customError ||
-//       gradeInputs[1].validity.valueMissing || gradeInputs[1].validity.customError ||
-//       gradeInputs[2].validity.valueMissing || gradeInputs[2].validity.customError) {
-//     alert('Please fill in all fields with valid values!');
-//     return;
-//   }
+  // validate the name
+  const name = nameInput.value;
+  if (!validateName(name)) {
+    alert(
+      "Please enter a valid name (containing no digits or special characters)."
+    );
+    return;
+  }
 
-//   const data = `${name},${grade1},${grade2},${grade3}\n`;
+  const grade1 = parseInt(grade1Input.value);
+  const grade2 = parseInt(grade2Input.value);
+  const grade3 = parseInt(grade3Input.value);
+  const average = (grade1 + grade2 + grade3) / 3;
 
-//   fetch('http://localhost:3000/save-data', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'text/plain'
-//     },
-//     body: data
-//   })
-//   .then(response => {
-//     if (response.ok) {
-//       alert('Data saved successfully!');
-//       nameInput.value = '';
-//       gradeInputs.forEach(input => input.value = '');
-//     } else {
-//       throw new Error('Failed to save data!');
-//     }
-//   })
-//   .catch(error => alert(error.message));
+  if (isNaN(average) || average < 0 || average > 100) {
+    alert("Please enter valid grades (between 0 and 100).");
+    return;
+  }
 
-//   // if all fields are filled in and all grades are valid, save the data to localStorage
-//   const studentsData = JSON.parse(localStorage.getItem('studentsData')) || [];
-//   studentsData.push({
-//     name,
-//     grades: [grade1, grade2, grade3]
-//   });
-//   localStorage.setItem('studentsData', JSON.stringify(studentsData));
-// });
+  const student = {
+    name: name,
+    grade1: grade1,
+    grade2: grade2,
+    grade3: grade3,
+  };
+  saveFormToLocalStorage(student);
+}
+
+function saveFormToLocalStorage(student) {
+  // get the form data
+  const name = student.name;
+  const grade1 = student.grade1;
+  const grade2 = student.grade2;
+  const grade3 = student.grade3;
+
+  const csvString = `${name},${grade1},${grade2},${grade3}\n`;
+  const existingData = localStorage.getItem("grades");
+
+  if (!existingData) {
+    localStorage.setItem("grades", csvString);
+  } else {
+    localStorage.setItem("grades", existingData + csvString);
+  }
+
+  document.getElementById("myForm").reset();
+  console.log("Form data saved to local storage as CSV file!");
+}
+
+const form = document.getElementById("myForm");
+form.addEventListener("submit", handleSubmit);
