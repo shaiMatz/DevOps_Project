@@ -16,9 +16,7 @@ function handleSubmit(event) {
   // validate the name
   const name = nameInput.value;
   if (!validateName(name)) {
-    alert(
-      "Please enter a valid name (containing no digits or special characters)."
-    );
+    alert("Please enter a valid name (containing no digits or special characters).");
     return;
   }
 
@@ -28,7 +26,7 @@ function handleSubmit(event) {
   const average = (grade1 + grade2 + grade3) / 3;
 
   if (isNaN(average) || average < 0 || average > 100) {
-    alert("Please enter valid grades (between 0 and 100).");
+    console.log("Please enter valid grades (between 0 and 100).");
     return;
   }
 
@@ -40,6 +38,8 @@ function handleSubmit(event) {
   };
   saveFormToLocalStorage(student);
 }
+
+
 
 function saveFormToLocalStorage(student) {
   // get the form data
@@ -57,9 +57,9 @@ function saveFormToLocalStorage(student) {
     localStorage.setItem("grades", existingData + csvString);
   }
 
-  document.getElementById("myForm").reset();
-  console.log("Form data saved to local storage as CSV file!");
+  if(!document.getElementsByName("name"))
+    document.getElementById("MyForm").reset();
+ 
 }
 
-const form = document.getElementById("myForm");
-form.addEventListener("submit", handleSubmit);
+module.exports = { validateName, handleSubmit, saveFormToLocalStorage };
