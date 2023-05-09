@@ -1,3 +1,6 @@
+const form = document.getElementById("myForm");
+form.addEventListener("submit", handleSubmit);
+
 // function to validate the student name
 function validateName(name) {
   const regex = /^[a-zA-Z\s-]+$/;

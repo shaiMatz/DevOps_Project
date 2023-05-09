@@ -22,24 +22,5 @@
       <button type="submit">Save</button>
     </form>
   </div>
-  <div id="results"></div>
-  <button onclick="showLocalStorage()">read</button>
 </body>
 </html>
-<script>
-  const form = document.getElementById("myForm");
-  form.addEventListener("submit", handleSubmit);
-
-  function showLocalStorage() {
-    var localStorageKeys = Object.keys(localStorage);
-    var listItems = "";
-    for (var i = 0; i < localStorageKeys.length; i++) {
-      var key = localStorageKeys[i];
-      var value = localStorage.getItem(key);
-      listItems += "<li>" + key + " - " + value + "</li>";
-    }
-    var list = document.createElement("ul");
-    list.innerHTML = listItems;
-    document.getElementById("results").innerHTML = listItems;
-  }
-</script>
