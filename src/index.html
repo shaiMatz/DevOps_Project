@@ -3,24 +3,33 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="style.css" rel="stylesheet" />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-  <script src="./script.js"></script>
+
   <title>Submit Grades</title>
 </head>
 
 <body>
+
   <div class="form-container">
     <form id="myForm">
       <h1>Submit Grades</h1>
-      <input type="text" name="name" placeholder="Student Name" required />
-      <input type="number" name="grade1" placeholder="Student Grade 1" min="0" max="100" required />
-      <input type="number" name="grade2" placeholder="Student Grade 2" min="0" max="100" required />
-      <input type="number" name="grade3" placeholder="Student Grade 3" min="0" max="100" required />
+      <input type="text" id="name" placeholder="Student Name" required />
+      <input type="number" id="grade1" placeholder="Student Grade 1" min="0" max="100" required />
+      <input type="number" id="grade2" placeholder="Student Grade 2" min="0" max="100" required />
+      <input type="number" id="grade3" placeholder="Student Grade 3" min="0" max="100" required />
       <button type="submit">Save</button>
     </form>
+    <button onclick="displayGrades()">View</button>
+    <table id="table">
+      <thead>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+    <button onclick="document.getElementById('table').style.visibility = 'hidden'; document.getElementById('table').style.display = 'none';">Hide</button>
   </div>
 </body>
+<script src="script.js"></script>
+
 </html>

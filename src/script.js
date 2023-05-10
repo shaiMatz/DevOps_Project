@@ -1,5 +1,7 @@
+if (typeof window !== 'undefined') {
 const form = document.getElementById("myForm");
-form.addEventListener("submit", handleSubmit);
+form.addEventListener("submit", saveGradesToLocalStorage);
+}
 
 // function to validate the student name
 function validateName(name) {
@@ -8,7 +10,7 @@ function validateName(name) {
 }
 
 // function to handle the form submission
-function handleSubmit(event) {
+function saveGradesToLocalStorage(event) {
   event.preventDefault();
 
   const nameInput = document.getElementById("name");
@@ -29,27 +31,9 @@ function handleSubmit(event) {
   const average = (grade1 + grade2 + grade3) / 3;
 
   if (isNaN(average) || average < 0 || average > 100) {
-    console.log("Please enter valid grades (between 0 and 100).");
+    alert("Please enter valid grades (between 0 and 100).");
     return;
   }
-
-  const student = {
-    name: name,
-    grade1: grade1,
-    grade2: grade2,
-    grade3: grade3,
-  };
-  saveFormToLocalStorage(student);
-}
-
-
-
-function saveFormToLocalStorage(student) {
-  // get the form data
-  const name = student.name;
-  const grade1 = student.grade1;
-  const grade2 = student.grade2;
-  const grade3 = student.grade3;
 
   const csvString = `${name},${grade1},${grade2},${grade3}\n`;
   const existingData = localStorage.getItem("grades");
@@ -60,9 +44,74 @@ function saveFormToLocalStorage(student) {
     localStorage.setItem("grades", existingData + csvString);
   }
 
-  if(!document.getElementsByName("name"))
-    document.getElementById("MyForm").reset();
- 
+  form.reset();
 }
 
-module.exports = { validateName, handleSubmit, saveFormToLocalStorage };
+// function to display the grades
+function displayGrades() {
+  const grades = localStorage.getItem("grades");
+  const gradesArray = grades.split("\n");
+  const tableBody = document.getElementById("tableBody");
+  document.getElementById('table').style.visibility = 'visible'; 
+  document.getElementById('table').style.display = 'table';
+  document.getElementById('table').style.borderCollapse = 'collapse';
+
+  // Check if there is any existing data in the table
+  const existingData = tableBody.innerHTML.trim();
+
+  // If there is no existing data or it is different from the new data, update the table
+  if (existingData !== grades) {
+    // Clear the existing table
+    tableBody.innerHTML = "";
+    // Create table header row
+    const headerRow = document.createElement("tr");
+    const nameHeader = document.createElement("th");
+    const nameHeaderText = document.createTextNode("Name");
+    nameHeader.appendChild(nameHeaderText);
+    headerRow.appendChild(nameHeader);
+
+    const grade1Header = document.createElement("th");
+    const grade1HeaderText = document.createTextNode("Grade 1");
+    grade1Header.appendChild(grade1HeaderText);
+    headerRow.appendChild(grade1Header);
+
+    const grade2Header = document.createElement("th");
+    const grade2HeaderText = document.createTextNode("Grade 2");
+    grade2Header.appendChild(grade2HeaderText);
+    headerRow.appendChild(grade2Header);
+
+    const grade3Header = document.createElement("th");
+    const grade3HeaderText = document.createTextNode("Grade 3");
+    grade3Header.appendChild(grade3HeaderText);
+    headerRow.appendChild(grade3Header);
+
+    tableBody.appendChild(headerRow);
+
+    for (let i = 0; i < gradesArray.length; i++) {
+      const row = document.createElement("tr");
+      const rowData = gradesArray[i].split(",");
+
+      if (rowData.length !== 4) {
+        continue;
+      }
+
+      for (let j = 0; j < rowData.length; j++) {
+        const cell = document.createElement("td");
+        const cellText = document.createTextNode(rowData[j]);
+        cell.appendChild(cellText);
+        row.appendChild(cell);
+      }
+
+      tableBody.appendChild(row);
+    }
+  }
+}
+
+try {
+module.exports = { validateName, saveGradesToLocalStorage };
+} catch (e) {console.log("module.exports not found.. not big deal")}
+
+if (typeof window !== 'undefined')
+{
+  window.validateName = validateName;
+}

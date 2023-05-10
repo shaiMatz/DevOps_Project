@@ -1,7 +1,7 @@
 {
   "name": "devops_project",
   "version": "1.0.0",
-  "description": "",
+  "description": "A sample project for demonstrating DevOps best practices",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -10,8 +10,13 @@
   },
   "author": "Yossi Elgazari, Shai Matzliach",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YossiElgazari/devops_project.git"
+  },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "text-encoding-utf-8": "^1.0.2"
   },
   "devDependencies": {
     "eslint": "^8.40.0",
