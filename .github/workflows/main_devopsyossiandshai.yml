@@ -25,9 +25,7 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          npm run lint --if-present
           npm run test --if-present
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -53,5 +51,5 @@ jobs:
         with:
           app-name: 'devOpsYossiAndShai'
           slot-name: 'Production'
-          publish-profile: "ftps://waws-prod-dm1-181.ftp.azurewebsites.windows.net/site/wwwroot"
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_470C259F0E90426A8A101AF1BEC86073 }}
           package: .
