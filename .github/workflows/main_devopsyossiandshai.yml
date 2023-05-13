@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'devOpsYossiAndShai'
           slot-name: 'Production'
-          publish-profile:  publishUrl="devopsyossiandshai.scm.azurewebsites.net:443
+          publish-profile: "ftps://waws-prod-dm1-181.ftp.azurewebsites.windows.net/site/wwwroot"
           package: .
