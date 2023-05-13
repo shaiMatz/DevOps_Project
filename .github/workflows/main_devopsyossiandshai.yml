@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'devOpsYossiAndShai'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_470C259F0E90426A8A101AF1BEC86073 }}
+          publish-profile:  publishUrl="devopsyossiandshai.scm.azurewebsites.net:443
           package: .
