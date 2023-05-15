@@ -5,12 +5,10 @@
   <meta charset="UTF-8" />
   <link href="style.css" rel="stylesheet" />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
   <title>Submit Grades</title>
 </head>
 
 <body>
-
   <div class="form-container">
     <form id="myForm">
       <h1>Submit Grades</h1>
@@ -18,7 +16,8 @@
       <input type="number" id="grade1" placeholder="Student Grade 1" min="0" max="100" required />
       <input type="number" id="grade2" placeholder="Student Grade 2" min="0" max="100" required />
       <input type="number" id="grade3" placeholder="Student Grade 3" min="0" max="100" required />
-      <button type="submit">Save</button>
+      <button id="save-button"> Save</button>
+      <h2 id="message" class="hidden">Saved!</h2>
     </form>
     <button onclick="displayGrades()">View</button>
     <table id="table">
@@ -27,9 +26,32 @@
       <tbody id="tableBody">
       </tbody>
     </table>
-    <button onclick="document.getElementById('table').style.visibility = 'hidden'; document.getElementById('table').style.display = 'none';">Hide</button>
+    <button
+      onclick="document.getElementById('table').style.visibility = 'hidden'; document.getElementById('table').style.display = 'none';">Hide</button>
+    <button id="delete-button" onclick="clearLocalStorage()">Delete Data</button>
   </div>
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
+<script>
+  const form = document.getElementById('myForm');
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (saveGradesToLocalStorage()) {
+      formSaved = true;
+      const message = document.getElementById('message');
+      message.classList.remove('hidden');
+      setTimeout(() => {
+        message.classList.add('hidden');
+      }, 2000);
+      form.reset();
+      if (formSaved) {
+        const message = document.getElementById('message');
+        message.classList.remove('hidden');
+      }
+    }
+  });
+
+</script>
+
 
 </html>
