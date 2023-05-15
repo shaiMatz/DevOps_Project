@@ -41,7 +41,7 @@ To install and run the project locally, follow these steps:
 1. Clone the repository from GitHub:
 
 ```shell
-git clone https://github.com/YossiElgazari/devops_project.git
+git clone https://github.com/shaiMatz/devops_project.git
 ```
 
 2. Change into the project directory:
