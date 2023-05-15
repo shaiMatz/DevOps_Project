@@ -64,7 +64,7 @@ To start the project, run the following command:
 npm start
 ```
 
-This will start the Node.js server, and you can access the web page in your browser by navigating to [http://localhost:3000](http://localhost:3000).
+This will start the Node.js server, and you can access the web page in your browser by navigating to [http://localhost:5000](http://localhost:5000).
 
 Once the web page is loaded, you can enter a student's name and three grades in the input fields and click the "Save" button to store the grades in the local storage. The "View" button will display a table with all the saved grades, and the "Hide" button will hide the table. The "Delete Data" button can be used to clear all saved grades from the local storage.
 
